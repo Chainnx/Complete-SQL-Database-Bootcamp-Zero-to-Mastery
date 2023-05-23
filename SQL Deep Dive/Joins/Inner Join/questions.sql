@@ -26,8 +26,9 @@ inner JOIN inventory as b ON a.prod_id = b.prod_id
 * Table: employees
 * Question: Show me for each employee which department they work in
 */
-SELECT a.*, b.dept_no from employees as a
+SELECT a.*, b.dept_no, c.dept_name from employees as a
 INNER JOIN dept_emp as b ON a.emp_no = b.emp_no
+INNER JOIN departments as c ON b.dept_no = c.dept_no
 ORDER BY a.emp_no
 
 
