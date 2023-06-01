@@ -4,8 +4,9 @@
 *  Table: Country
 */
 
-SELECT *
-FROM country;
+SELECT DISTINCT continent, SUM(population) OVER(
+    PARTITION BY continent)
+from country
 
 /*
 *  To the previous query add on the ability to calculate the percentage of the world population
@@ -28,5 +29,10 @@ FROM country;
 *  Table: Regions (Join + Window function)
 */
 
-SELECT *
-FROM regions AS r;
+select DISTINCT r.name as "region",
+COUNT(t.name) OVER(
+    PARTITION BY "region") as "towns"
+from regions as r
+inner JOIN departments as d ON r.code = d.region
+INNER JOIN towns as t ON d.code = t.department
+ORDER BY "towns"
